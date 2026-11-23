@@ -39,6 +39,11 @@ def main():
         raise SystemExit("the letter must name the chosen drink")
     DESTINATION.parent.mkdir(parents=True, exist_ok=True)
     DESTINATION.write_text(LETTER, encoding="utf-8")
+    # Read it back: the gate wants exactly one character, so prove
+    # the file on disk is exactly the letter and nothing else.
+    written = DESTINATION.read_text(encoding="utf-8")
+    if written != LETTER or len(written) != 1:
+        raise SystemExit("entry.txt must hold exactly the one letter")
 
 
 if __name__ == "__main__":
